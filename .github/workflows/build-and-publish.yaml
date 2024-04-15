@@ -13,6 +13,9 @@ defaults:
 jobs:
   create_nuget:
     runs-on: ubuntu-latest
+    environment: 
+      name: production-nuget
+      url: https://www.nuget.org/
     steps:
     - uses: actions/checkout@v3
 

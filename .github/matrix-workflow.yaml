@@ -1,0 +1,28 @@
+name: 'Test run of reusable workflow'
+
+on:
+  workflow_dispatch:
+    inputs:
+      test_parameter:
+        description: 'Test parameter'
+        required: true
+        default: 'All'
+        type: choice
+        options:
+          - 'All'
+          - 'Test 1'
+          - 'Test 2'
+          - 'Test 3'
+
+jobs:
+  test_run:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        test: ${{ fromJson('["Test 1", "Test 2", "Test 3"]') }}
+        include:
+          - test: ${{ github.event.inputs.test_parameter }}
+    uses: ./.github/workflows/reusable-workflow.yaml
+    with:
+      test_parameter: ${{ matrix.test }}
+    if: ${{ github.event.inputs.test_parameter == 'All' || github.event.inputs.test_parameter == matrix.test }}

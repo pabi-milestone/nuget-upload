@@ -16,7 +16,6 @@ on:
 
 jobs:
   test_run:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
         test: ${{ fromJson('["Test 1", "Test 2", "Test 3"]') }}
@@ -24,5 +23,5 @@ jobs:
           - test: ${{ github.event.inputs.test_parameter }}
     uses: ./.github/workflows/reusable-workflow.yaml
     with:
-      test_parameter: ${{ matrix.test }}
+      my_input: ${{ matrix.test }}
     if: ${{ github.event.inputs.test_parameter == 'All' || github.event.inputs.test_parameter == matrix.test }}

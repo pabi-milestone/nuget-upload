@@ -7,6 +7,12 @@ on:
         description: 'A string input parameter'
         required: true
         type: string
+  workflow_dispatch:
+    inputs:
+      my_input:
+        description: 'A string input parameter'
+        required: true
+        type: string
 
 jobs:
     build:
